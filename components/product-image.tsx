@@ -153,6 +153,7 @@ export function ProductImage() {
               src={img}
               alt={`Thumbnail ${idx + 1}`}
               fill
+              sizes="(max-width: 768px) 64px, 80px"
               className={cn(
                 "object-contain p-1",
                 idx === 0 && "mix-blend-multiply"

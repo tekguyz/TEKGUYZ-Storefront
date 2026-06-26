@@ -9,8 +9,8 @@ import { captureOrder } from "@/app/actions";
 declare global {
   interface Window {
     paypalSDK?: {
-      Buttons: (config: PayPalButtonsConfig) => { render: (selector: string) => void; close: () => void };
-      Messages: (config: PayPalMessagesConfig) => { render: (selector: string) => void };
+      Buttons: (config: PayPalButtonsConfig) => { render: (selector: string | HTMLElement) => void; close: () => void };
+      Messages: (config: PayPalMessagesConfig) => { render: (selector: string | HTMLElement) => void };
     };
   }
 }
@@ -51,6 +51,7 @@ export default function PayPalButton() {
   const [orderStatus, setOrderStatus] = useState<"idle" | "processing" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const buttonsRef = useRef<ReturnType<NonNullable<Window["paypalSDK"]>["Buttons"]> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -139,7 +140,7 @@ export default function PayPalButton() {
   useEffect(() => {
     if (sdkState !== "ready" || !window.paypalSDK) return;
 
-    const container = document.getElementById("paypal-button-container");
+    const container = containerRef.current;
     if (!container) return;
 
     // Clear any existing content
@@ -161,7 +162,7 @@ export default function PayPalButton() {
         onCancel: handleCancel,
       });
 
-      buttonsRef.current.render("#paypal-button-container");
+      buttonsRef.current.render(container);
     } catch (err) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSdkState("error");
@@ -222,13 +223,14 @@ export default function PayPalButton() {
   return (
     <div style={{ minHeight: "48px", position: "relative" }}>
       {/* SDK renders PayPal buttons here */}
+      <div ref={containerRef} className="w-full relative z-10" />
       {(sdkState === "loading" || orderStatus === "processing") && (
         <div style={{
           position: "absolute", inset: 0,
           display: "flex", alignItems: "center", justifyContent: "center",
           background: "var(--color-surface)", borderRadius: "4px",
           fontSize: "0.875rem", color: "var(--color-text-muted)",
-          zIndex: 10
+          zIndex: 20
         }}>
           {orderStatus === "processing" ? "Processing..." : "Loading PayPal..."}
         </div>

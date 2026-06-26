@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useTheme } from "next-themes";
 import { PAYPAL, PRODUCT } from "@/lib/constants";
 
@@ -8,6 +8,7 @@ export default function PayPalMessages() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -16,7 +17,7 @@ export default function PayPalMessages() {
 
   useEffect(() => {
     if (!mounted) return;
-    const container = document.getElementById("paypal-messages-container");
+    const container = containerRef.current;
     if (!container) return;
     container.innerHTML = "";
 
@@ -33,7 +34,7 @@ export default function PayPalMessages() {
                 color: isDark ? "white" : "black",
               }
             },
-          }).render("#paypal-messages-container");
+          }).render(container);
         } catch {
           // SDK may not have Messages component in all sandbox configs — fail silently
         }
@@ -47,7 +48,7 @@ export default function PayPalMessages() {
 
   return (
     <div
-      id="paypal-messages-container"
+      ref={containerRef}
       style={{
         minHeight: "20px",
         textAlign: "center",
@@ -58,4 +59,5 @@ export default function PayPalMessages() {
     />
   );
 }
+
 
