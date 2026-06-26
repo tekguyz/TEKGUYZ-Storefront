@@ -34,29 +34,29 @@ export default function Header() {
                 Computers <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64 bg-[var(--color-base)] border border-[var(--color-border)] rounded-[var(--radius-button)] shadow-lg mt-2 p-1">
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/all-laptops" className="w-full px-2 py-1.5">All Laptops</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/all-laptops" className="w-full px-2 py-1.5 block">All Laptops</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/category/catalog/laptops/accessories" className="w-full px-2 py-1.5">Accessories</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/category/catalog/laptops/accessories" className="w-full px-2 py-1.5 block">Accessories</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/content/services" className="w-full px-2 py-1.5">Services</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/content/services" className="w-full px-2 py-1.5 block">Services</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/product/BoostBoxG4" className="w-full px-2 py-1.5">Boost Box</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/product/BoostBoxG4" className="w-full px-2 py-1.5 block">Boost Box</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/laptops/P14s-AMDR7-1TB32GB" className="w-full px-2 py-1.5">ThinkPad P14s | AMD R7 Pro</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/laptops/P14s-AMDR7-1TB32GB" className="w-full px-2 py-1.5 block">ThinkPad P14s | AMD R7 Pro</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/node/17496" className="w-full px-2 py-1.5">ThinkPad P16s | 4K OLED | AMD R7 Pro</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/node/17496" className="w-full px-2 py-1.5 block">ThinkPad P16s | 4K OLED | AMD R7 Pro</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/laptops/P16s-Ultra7-512GB" className="w-full px-2 py-1.5">ThinkPad P16s | Intel Ultra 7</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/laptops/P16s-Ultra7-512GB" className="w-full px-2 py-1.5 block">ThinkPad P16s | Intel Ultra 7</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-[var(--color-surface)] focus:text-[var(--color-text)] rounded-sm text-sm p-0 transition-colors">
-                  <Link href="https://www.eclipsecat.com/node/17364" className="w-full px-2 py-1.5">ThinkPad X1 Carbon | Intel Ultra 7</Link>
+                <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
+                  <Link href="https://www.eclipsecat.com/node/17364" className="w-full px-2 py-1.5 block">ThinkPad X1 Carbon | Intel Ultra 7</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring, useReducedMotion, AnimatePresence } 
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { PRODUCT } from "@/lib/constants";
 
@@ -26,7 +25,6 @@ export function ProductImage() {
   const prefersReducedMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { resolvedTheme } = useTheme();
 
   // Core motion values
   const mouseX = useMotionValue(0);
@@ -37,11 +35,8 @@ export function ProductImage() {
   const rotateY = useSpring(mouseX, { stiffness: 60, damping: 25 });
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
-
-  const isDark = mounted && resolvedTheme === "dark";
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (prefersReducedMotion || !mounted) return;
@@ -49,7 +44,6 @@ export function ProductImage() {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
     
-    // Normalize to: rotateX (driven by Y offset) is -8 to +8 deg, rotateY (driven by X offset) is -6 to +6 deg
     const degreesX = -(y / (rect.height / 2)) * 8;
     const degreesY = (x / (rect.width / 2)) * 6;
 
@@ -83,7 +77,7 @@ export function ProductImage() {
       >
         <button 
           onClick={prevImage}
-          className="absolute left-0 md:left-4 z-20 p-2 md:p-3 bg-[var(--color-base)]/80 hover:bg-[var(--color-base)] text-[var(--color-text)] rounded-full backdrop-blur-sm border border-[var(--color-border-subtle)] shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          className="absolute left-0 md:left-4 z-20 p-2 md:p-3 bg-white/90 hover:bg-white text-zinc-900 rounded-full backdrop-blur-sm border border-zinc-200 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           aria-label="Previous image"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -98,7 +92,8 @@ export function ProductImage() {
             rotateY: prefersReducedMotion ? 0 : rotateY,
             transformStyle: "preserve-3d"
           }}
-          className="w-full flex justify-center aspect-square max-h-[200px] xs:max-h-[240px] sm:max-h-[300px] md:max-h-[340px] relative rounded-2xl transition-all duration-300 p-2 overflow-visible bg-transparent border-none shadow-none"
+          /* FIX 1: Permanent premium white studio card wrapper for ALL images on BOTH themes */
+          className="w-full aspect-[4/3] max-w-[480px] relative rounded-2xl p-6 flex justify-center items-center overflow-hidden bg-white border border-zinc-200/80 shadow-[0_12px_32px_rgba(0,0,0,0.06)] dark:shadow-[0_24px_48px_rgba(0,0,0,0.4)]"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -107,18 +102,15 @@ export function ProductImage() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="absolute inset-0 flex justify-center items-center p-2"
+              className="absolute inset-0 flex justify-center items-center p-6"
             >
               <Image
                 src={IMAGES[currentIndex]}
                 alt={`${PRODUCT.name} view ${currentIndex + 1}`}
                 width={620}
-                height={520}
+                height={465}
                 priority={currentIndex === 0}
-                className={cn(
-                  "object-contain w-full h-full max-w-[280px] sm:max-w-[340px] md:max-w-none mx-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300 pointer-events-none",
-                  currentIndex === 0 && "mix-blend-multiply"
-                )}
+                className="object-contain w-full h-full max-w-full max-h-full mx-auto pointer-events-none"
               />
             </motion.div>
           </AnimatePresence>
@@ -126,7 +118,7 @@ export function ProductImage() {
 
         <button 
           onClick={nextImage}
-          className="absolute right-0 md:right-4 z-20 p-2 md:p-3 bg-white/80 hover:bg-white text-zinc-900 rounded-full backdrop-blur-sm border border-zinc-200 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          className="absolute right-0 md:right-4 z-20 p-2 md:p-3 bg-white/90 hover:bg-white text-zinc-900 rounded-full backdrop-blur-sm border border-zinc-200 shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           aria-label="Next image"
         >
           <ChevronRight className="w-5 h-5" />
@@ -139,14 +131,12 @@ export function ProductImage() {
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
+            /* FIX 2: Fixed thumbnail buttons to use solid white backgrounds across both themes so the asset boxes blend seamlessly */
             className={cn(
-              "relative flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-md overflow-hidden border-2 transition-all duration-200 snap-center p-0.5",
-              isDark ? "bg-zinc-900 hover:bg-zinc-800" : "bg-white hover:bg-zinc-50",
+              "relative flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-md overflow-hidden border-2 transition-all duration-200 snap-center p-0.5 bg-white",
               currentIndex === idx 
-                ? "border-[var(--color-accent)] opacity-100 scale-105" 
-                : isDark
-                  ? "border-zinc-800/80 opacity-70 hover:opacity-100"
-                  : "border-zinc-200/60 opacity-60 hover:opacity-100 hover:border-zinc-300"
+                ? "border-[var(--color-accent)] opacity-100 scale-105 shadow-sm" 
+                : "border-zinc-200/60 opacity-60 hover:opacity-100 hover:border-zinc-300"
             )}
           >
             <Image
@@ -154,10 +144,7 @@ export function ProductImage() {
               alt={`Thumbnail ${idx + 1}`}
               fill
               sizes="(max-width: 768px) 64px, 80px"
-              className={cn(
-                "object-contain p-1",
-                idx === 0 && "mix-blend-multiply"
-              )}
+              className="object-contain p-1"
             />
           </button>
         ))}
@@ -165,4 +152,3 @@ export function ProductImage() {
     </div>
   );
 }
-
