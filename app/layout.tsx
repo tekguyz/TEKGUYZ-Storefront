@@ -17,6 +17,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://tekguyz-store.vercel.app'),
   title: 'TEKGUYZ | Downey Voice Writing Student Bundle with 14-inch Laptop',
   description: 'A complete, ready-to-use package featuring a business-class 14-inch laptop optimized for voice writers, Eclipse Student Software, professional voice writing equipment, training resources, and support.',
   openGraph: {

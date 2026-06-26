@@ -25,8 +25,8 @@ interface PayPalButtonsConfig {
     tagline: boolean;
     height: number;
   };
-  createOrder: () => Promise<string>;
-  onApprove: (data: { orderID: string }) => Promise<void>;
+  createOrder: (data: any, actions: any) => Promise<string>;
+  onApprove: (data: { orderID: string }, actions: any) => Promise<void>;
   onError: (err: unknown) => void;
   onCancel: () => void;
 }
@@ -79,35 +79,47 @@ export default function PayPalButton() {
     };
   }, []);
 
-  const handleCreateOrder = useCallback(async () => {
-    setOrderStatus("processing");
-    // In production: call PayPal REST API via Server Action to create order
-    // For sandbox: return a mock order ID — SDK handles the rest
-    // Full production implementation:
-    // const result = await createPayPalOrder(PRODUCT.price, PRODUCT.currency);
-    // return result.orderId;
-
-    // SANDBOX: The SDK creates the order internally with the provided client ID
-    // We return a promise that the SDK resolves with the actual order ID
-    return new Promise<string>((resolve) => {
-      // The SDK will call its own createOrder internally
-      // This stub satisfies the TypeScript requirement
-      resolve(`SANDBOX_ORDER_${Date.now()}`);
-    });
+  const handleCreateOrder = useCallback(async (data: any, actions: any) => {
+    try {
+      return await actions.order.create({
+        purchase_units: [
+          {
+            amount: {
+              value: PRODUCT.price.toFixed(2),
+              currency_code: PRODUCT.currency,
+            },
+            description: PRODUCT.name,
+          },
+        ],
+      });
+    } catch (err) {
+      console.error("[PayPal] Error creating order:", err);
+      setOrderStatus("error");
+      setErrorMessage("Could not initiate PayPal checkout. Please try again.");
+      throw err;
+    }
   }, []);
 
-  const handleApprove = useCallback(async (data: { orderID: string }) => {
+  const handleApprove = useCallback(async (data: { orderID: string }, actions: any) => {
     setOrderStatus("processing");
-    const result = await captureOrder(data.orderID);
+    try {
+      // Execute capture client-side
+      const details = await actions.order.capture();
+      console.log("[PayPal] Client-side capture details:", details);
 
-    if (result.status === "completed") {
-      setOrderStatus("success");
-      // TODO: remove comment in production
-      console.log("[PayPal] Order completed:", result.captureId);
-      // In production: redirect to confirmation page or show success UI
-    } else {
+      const result = await captureOrder(data.orderID);
+
+      if (result.status === "completed") {
+        setOrderStatus("success");
+        console.log("[PayPal] Order completed:", result.captureId);
+      } else {
+        setOrderStatus("error");
+        setErrorMessage(result.error ?? "Order capture failed");
+      }
+    } catch (err) {
+      console.error("[PayPal] Capture error:", err);
       setOrderStatus("error");
-      setErrorMessage(result.error ?? "Order capture failed");
+      setErrorMessage("Failed to capture payment. Please contact support.");
     }
   }, []);
 
