@@ -17,7 +17,7 @@ export function BundleCard({ category, icon, items }: BundleCardProps) {
   const IconComponent = IconMap[icon];
 
   return (
-    <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card)] p-8 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[oklch(65%_0.22_255_/_0.4)] transition-all duration-300 ease-[var(--ease-out-expo)] h-full flex flex-col">
+    <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-card)] p-8 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-accent/40 transition-all duration-300 ease-[var(--ease-out-expo)] h-full flex flex-col">
       <div className="flex items-center gap-4">
         <div className="w-10 h-10 rounded-lg bg-[var(--color-accent-dim)] flex items-center justify-center shrink-0">
           {IconComponent ? <IconComponent className="w-5 h-5 text-[var(--color-accent)]" /> : <div />}

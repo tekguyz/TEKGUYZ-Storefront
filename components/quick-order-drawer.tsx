@@ -43,13 +43,13 @@ export function QuickOrderDrawer() {
         <ScrollArea className="flex-1 px-6">
           <div className="py-6 space-y-6">
             <div className="flex gap-4">
-              <div className="w-24 h-24 relative bg-[var(--color-surface)] rounded-md border border-[var(--color-border-subtle)] flex-shrink-0 flex items-center justify-center p-2">
+              <div className="w-24 h-24 relative bg-white rounded-md border border-[var(--color-border-subtle)] flex-shrink-0 flex items-center justify-center p-2">
                 <Image
                   src={PRODUCT.image}
                   alt={PRODUCT.name}
                   width={80}
                   height={80}
-                  className="object-contain drop-shadow-sm mix-blend-multiply dark:mix-blend-normal dark:invert dark:hue-rotate-180"
+                  className="object-contain drop-shadow-sm"
                 />
               </div>
               <div className="flex flex-col justify-center">

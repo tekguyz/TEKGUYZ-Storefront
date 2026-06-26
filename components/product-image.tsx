@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { PRODUCT } from "@/lib/constants";
 
 const IMAGES = [
+  "/downey-voicewriting-student-14.jpg",
   "/p14s-g6-front.png",
   "/p14s-g6-left-angle-front.png",
   "/p14s-g6-right-angle-front.png",
@@ -34,6 +35,7 @@ export function ProductImage() {
   const rotateY = useSpring(mouseX, { stiffness: 60, damping: 25 });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -43,6 +45,7 @@ export function ProductImage() {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
     
+    // Normalize to: rotateX (driven by Y offset) is -8 to +8 deg, rotateY (driven by X offset) is -6 to +6 deg
     const degreesX = -(y / (rect.height / 2)) * 8;
     const degreesY = (x / (rect.width / 2)) * 6;
 
@@ -91,7 +94,12 @@ export function ProductImage() {
             rotateY: prefersReducedMotion ? 0 : rotateY,
             transformStyle: "preserve-3d"
           }}
-          className="w-full flex justify-center h-[200px] sm:h-[300px] md:h-[460px] relative"
+          className={cn(
+            "w-full flex justify-center h-[240px] sm:h-[340px] md:h-[460px] relative rounded-2xl border transition-all duration-300 p-4 shadow-sm overflow-hidden",
+            currentIndex === 0
+              ? "bg-white border-zinc-200/80 shadow-md"
+              : "bg-[var(--color-surface)] border-[var(--color-border-subtle)]"
+          )}
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -100,7 +108,7 @@ export function ProductImage() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="absolute inset-0 flex justify-center items-center"
+              className="absolute inset-0 flex justify-center items-center p-4"
             >
               <Image
                 src={IMAGES[currentIndex]}
@@ -108,7 +116,7 @@ export function ProductImage() {
                 width={620}
                 height={520}
                 priority={currentIndex === 0}
-                className="object-contain w-full h-full max-w-[320px] md:max-w-none mx-auto drop-shadow-[0_10px_20px_rgba(0,0,0,0.06)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-300 pointer-events-none"
+                className="object-contain w-full h-full max-w-[320px] md:max-w-none mx-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300 pointer-events-none"
               />
             </motion.div>
           </AnimatePresence>
@@ -116,7 +124,7 @@ export function ProductImage() {
 
         <button 
           onClick={nextImage}
-          className="absolute right-0 md:right-4 z-20 p-2 md:p-3 bg-[var(--color-base)]/80 hover:bg-[var(--color-base)] text-[var(--color-text)] rounded-full backdrop-blur-sm border border-[var(--color-border-subtle)] shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          className="absolute right-0 md:right-4 z-20 p-2 md:p-3 bg-white/80 hover:bg-white text-zinc-900 rounded-full backdrop-blur-sm border border-zinc-200 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           aria-label="Next image"
         >
           <ChevronRight className="w-5 h-5" />
@@ -130,10 +138,11 @@ export function ProductImage() {
             key={idx}
             onClick={() => setCurrentIndex(idx)}
             className={cn(
-              "relative flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-md overflow-hidden border-2 transition-all duration-200 snap-center bg-transparent",
+              "relative flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-md overflow-hidden border-2 transition-all duration-200 snap-center",
+              idx === 0 ? "bg-white" : "bg-[var(--color-surface)]",
               currentIndex === idx 
                 ? "border-[var(--color-accent)] opacity-100" 
-                : "border-transparent opacity-60 hover:opacity-100 hover:border-[var(--color-border)]"
+                : "border-[var(--color-border-subtle)] opacity-60 hover:opacity-100 hover:border-[var(--color-border)]"
             )}
           >
             <Image
@@ -148,3 +157,4 @@ export function ProductImage() {
     </div>
   );
 }
+

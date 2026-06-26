@@ -1,8 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-background: var(--background);
@@ -24,15 +23,6 @@
   --color-border-subtle: var(--border-subtle);
   --color-input: var(--input);
   --color-ring: var(--ring);
-
-  /* Semantic alignments for existing code */
-  --color-base: var(--background);
-  --color-surface: var(--card);
-  --color-surface-2: var(--secondary);
-  --color-text: var(--foreground);
-  --color-text-muted: var(--muted-foreground);
-  --color-accent-dim: var(--accent-dim);
-  --color-accent-glow: var(--accent-glow);
 
   --shadow-card: var(--shadow-card);
   --shadow-card-hover: var(--shadow-card-hover);
@@ -58,6 +48,15 @@
   --card-foreground: oklch(18% 0.015 255);
   --popover: oklch(100% 0 0);
   --popover-foreground: oklch(18% 0.015 255);
+
+  /* Semantic alignments for existing code */
+  --color-base: var(--background);
+  --color-surface: var(--card);
+  --color-surface-2: var(--secondary);
+  --color-text: var(--foreground);
+  --color-text-muted: var(--muted-foreground);
+  --color-accent-dim: var(--accent-dim);
+  --color-accent-glow: var(--accent-glow);
   
   /* Deep Sapphire/Blue with outstanding contrast on light backgrounds */
   --primary: oklch(48% 0.25 255);
@@ -102,6 +101,15 @@
   --card-foreground: oklch(97% 0.004 260);
   --popover: oklch(14% 0.016 260);
   --popover-foreground: oklch(97% 0.004 260);
+
+  /* Semantic alignments for existing code */
+  --color-base: var(--background);
+  --color-surface: var(--card);
+  --color-surface-2: var(--secondary);
+  --color-text: var(--foreground);
+  --color-text-muted: var(--muted-foreground);
+  --color-accent-dim: var(--accent-dim);
+  --color-accent-glow: var(--accent-glow);
   
   /* Luminous Sapphire for outstanding glow on dark backdrops */
   --primary: oklch(68% 0.24 255);

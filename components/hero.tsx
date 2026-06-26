@@ -95,7 +95,7 @@ export default function Hero() {
             >
               <Button 
                 size="lg" 
-                className="w-full md:w-auto bg-[var(--color-accent)] hover:brightness-110 text-white rounded-[var(--radius-button)] px-10 py-7 font-semibold text-base shadow-[var(--shadow-cta)] hover:scale-[1.02] hover:-translate-y-[1px] hover:shadow-[0_8px_32px_oklch(from_var(--color-accent)_l_c_h_/_0.25)] active:scale-[0.98] transition-all duration-300 cursor-pointer"
+                className="w-full md:w-auto bg-[var(--color-accent)] hover:brightness-110 text-white rounded-[var(--radius-button)] px-10 py-7 font-semibold text-base shadow-[var(--shadow-cta)] hover:scale-[1.02] hover:-translate-y-[1px] hover:shadow-[0_8px_32px_var(--color-accent-glow)] active:scale-[0.98] transition-all duration-300 cursor-pointer"
                 onClick={() => {
                   const el = document.getElementById("paypal-button-container");
                   if (el) {

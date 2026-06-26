@@ -12,7 +12,7 @@ import {
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 transition-all duration-300 border-b border-transparent data-[scrolled=true]:bg-[oklch(from_var(--color-base)_l_c_h_/_0.85)] data-[scrolled=true]:backdrop-blur-md data-[scrolled=true]:border-[var(--color-border-subtle)]">
+    <header className="sticky top-0 z-50 transition-all duration-300 border-b border-transparent data-[scrolled=true]:bg-background/85 data-[scrolled=true]:backdrop-blur-md data-[scrolled=true]:border-[var(--color-border-subtle)]">
       <HeaderScrollEffect />
       <div className="container">
         <div className="flex h-16 items-center justify-between">

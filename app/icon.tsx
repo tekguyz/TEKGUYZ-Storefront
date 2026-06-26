@@ -24,7 +24,7 @@ export default function Icon() {
           border: "1px solid #1e293b",
         }}
       >
-        T<span style={{ color: "#3b82f6" }}>Z</span>
+        T
       </div>
     ),
     {
