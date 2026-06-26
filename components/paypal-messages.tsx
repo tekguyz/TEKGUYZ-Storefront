@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "next-themes";
 import { PAYPAL, PRODUCT } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 export default function PayPalMessages() {
   const { resolvedTheme } = useTheme();
@@ -31,7 +32,8 @@ export default function PayPalMessages() {
             style: { 
               layout: "text",
               text: {
-                color: isDark ? "white" : "black",
+                // When we invert in dark mode, passing black makes it invert to white perfectly
+                color: "black",
               }
             },
           }).render(container);
@@ -49,11 +51,14 @@ export default function PayPalMessages() {
   return (
     <div
       ref={containerRef}
+      className={cn(
+        "w-full transition-all duration-200",
+        isDark && "invert hue-rotate-180 brightness-150 contrast-85"
+      )}
       style={{
         minHeight: "20px",
         textAlign: "center",
         fontSize: "0.875rem",
-        color: isDark ? "#ffffff" : "#000000",
         marginBottom: "1rem",
       }}
     />

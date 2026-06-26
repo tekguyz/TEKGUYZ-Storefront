@@ -39,7 +39,7 @@ export function QuickOrderDrawer() {
           </SheetHeader>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 min-h-0 scrollbar-thin">
+        <div className="flex-1 overflow-y-auto px-4 min-h-0 scrollbar-blue">
           <div className="py-4 space-y-4">
             <div className="flex gap-4">
               <div className="w-16 h-16 relative bg-white rounded-md border border-[var(--color-border-subtle)] flex-shrink-0 flex items-center justify-center p-1.5">

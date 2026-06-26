@@ -35,6 +35,7 @@ export function ProductImage() {
   const rotateY = useSpring(mouseX, { stiffness: 60, damping: 25 });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

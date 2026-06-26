@@ -213,3 +213,24 @@ body {
   background: var(--color-accent);
   opacity: 0.8;
 }
+
+.scrollbar-blue::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-blue::-webkit-scrollbar-track {
+  background: var(--border-subtle);
+  border-radius: 9999px;
+}
+.scrollbar-blue::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 9999px;
+}
+.scrollbar-blue::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+  filter: brightness(1.1);
+}
+.scrollbar-blue {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--border-subtle);
+}

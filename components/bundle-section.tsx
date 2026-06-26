@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { BUNDLE_ITEMS } from "@/lib/constants";
 import { BundleCard } from "./bundle-card";
+import { cn } from "@/lib/utils";
 
 export default function BundleSection() {
   return (
@@ -25,19 +26,28 @@ export default function BundleSection() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {BUNDLE_ITEMS.map((bundle, index) => (
-            <motion.div
-              key={bundle.id}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-              className="flex"
-            >
-              <BundleCard category={bundle.category} icon={bundle.icon} items={bundle.items} />
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {BUNDLE_ITEMS.map((bundle, index) => {
+            let gridSpan = "col-span-1";
+            if (bundle.id === "computer") {
+              gridSpan = "md:col-span-2 lg:col-span-2 lg:row-span-2";
+            } else if (bundle.id === "support") {
+              gridSpan = "md:col-span-2 lg:col-span-3";
+            }
+
+            return (
+              <motion.div
+                key={bundle.id}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+                className={cn("flex flex-col", gridSpan)}
+              >
+                <BundleCard id={bundle.id} category={bundle.category} icon={bundle.icon} items={bundle.items} />
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
