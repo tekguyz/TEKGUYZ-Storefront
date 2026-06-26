@@ -13,7 +13,6 @@ import {
 import { PRODUCT, BUNDLE_ITEMS } from "@/lib/constants";
 import PayPalButton from "./paypal-button";
 import PayPalMessages from "./paypal-messages";
-import { ScrollArea } from "./ui/scroll-area";
 import Image from "next/image";
 
 export function QuickOrderDrawer() {
@@ -28,8 +27,8 @@ export function QuickOrderDrawer() {
           </Button>
         }
       />
-      <SheetContent className="w-full sm:max-w-md flex flex-col p-0 border-l border-[var(--color-border)] bg-[var(--color-base)]">
-        <div className="p-6 pb-4 border-b border-[var(--color-border-subtle)]">
+      <SheetContent className="w-full sm:max-w-md flex flex-col p-0 border-l border-[var(--color-border)] bg-[var(--color-base)] h-full max-h-screen overflow-hidden">
+        <div className="p-6 pb-4 border-b border-[var(--color-border-subtle)] flex-shrink-0">
           <SheetHeader>
             <SheetTitle className="text-left font-display font-bold text-xl text-[var(--color-text)]">
               Quick Order Summary
@@ -40,7 +39,7 @@ export function QuickOrderDrawer() {
           </SheetHeader>
         </div>
 
-        <ScrollArea className="flex-1 px-6">
+        <div className="flex-1 overflow-y-auto px-6 min-h-0 scrollbar-thin">
           <div className="py-6 space-y-6">
             <div className="flex gap-4">
               <div className="w-24 h-24 relative bg-white rounded-md border border-[var(--color-border-subtle)] flex-shrink-0 flex items-center justify-center p-2">
@@ -78,9 +77,9 @@ export function QuickOrderDrawer() {
               </ul>
             </div>
           </div>
-        </ScrollArea>
+        </div>
 
-        <div className="p-6 border-t border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
+        <div className="p-6 border-t border-[var(--color-border-subtle)] bg-[var(--color-surface)] flex-shrink-0">
           <div className="flex justify-between items-center mb-4">
             <span className="font-semibold text-[var(--color-text)]">Total</span>
             <span className="font-bold text-xl text-[var(--color-text)]">{PRODUCT.priceFormatted}</span>

@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring, useReducedMotion, AnimatePresence } 
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { PRODUCT } from "@/lib/constants";
 
@@ -25,6 +26,7 @@ export function ProductImage() {
   const prefersReducedMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { resolvedTheme } = useTheme();
 
   // Core motion values
   const mouseX = useMotionValue(0);
@@ -38,6 +40,8 @@ export function ProductImage() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (prefersReducedMotion || !mounted) return;
@@ -94,12 +98,7 @@ export function ProductImage() {
             rotateY: prefersReducedMotion ? 0 : rotateY,
             transformStyle: "preserve-3d"
           }}
-          className={cn(
-            "w-full flex justify-center h-[240px] sm:h-[340px] md:h-[460px] relative rounded-2xl border transition-all duration-300 p-4 shadow-sm overflow-hidden",
-            currentIndex === 0
-              ? "bg-white border-zinc-200/80 shadow-md"
-              : "bg-[var(--color-surface)] border-[var(--color-border-subtle)]"
-          )}
+          className="w-full flex justify-center aspect-square max-h-[200px] xs:max-h-[240px] sm:max-h-[300px] md:max-h-[340px] relative rounded-2xl transition-all duration-300 p-2 overflow-visible bg-transparent border-none shadow-none"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -108,7 +107,7 @@ export function ProductImage() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="absolute inset-0 flex justify-center items-center p-4"
+              className="absolute inset-0 flex justify-center items-center p-2"
             >
               <Image
                 src={IMAGES[currentIndex]}
@@ -116,7 +115,10 @@ export function ProductImage() {
                 width={620}
                 height={520}
                 priority={currentIndex === 0}
-                className="object-contain w-full h-full max-w-[320px] md:max-w-none mx-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300 pointer-events-none"
+                className={cn(
+                  "object-contain w-full h-full max-w-[280px] sm:max-w-[340px] md:max-w-none mx-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300 pointer-events-none",
+                  currentIndex === 0 && "mix-blend-multiply"
+                )}
               />
             </motion.div>
           </AnimatePresence>
@@ -138,18 +140,23 @@ export function ProductImage() {
             key={idx}
             onClick={() => setCurrentIndex(idx)}
             className={cn(
-              "relative flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-md overflow-hidden border-2 transition-all duration-200 snap-center",
-              idx === 0 ? "bg-white" : "bg-[var(--color-surface)]",
+              "relative flex-shrink-0 w-16 h-12 md:w-20 md:h-14 rounded-md overflow-hidden border-2 transition-all duration-200 snap-center p-0.5",
+              isDark ? "bg-zinc-900 hover:bg-zinc-800" : "bg-white hover:bg-zinc-50",
               currentIndex === idx 
-                ? "border-[var(--color-accent)] opacity-100" 
-                : "border-[var(--color-border-subtle)] opacity-60 hover:opacity-100 hover:border-[var(--color-border)]"
+                ? "border-[var(--color-accent)] opacity-100 scale-105" 
+                : isDark
+                  ? "border-zinc-800/80 opacity-70 hover:opacity-100"
+                  : "border-zinc-200/60 opacity-60 hover:opacity-100 hover:border-zinc-300"
             )}
           >
             <Image
               src={img}
               alt={`Thumbnail ${idx + 1}`}
               fill
-              className="object-contain p-1"
+              className={cn(
+                "object-contain p-1",
+                idx === 0 && "mix-blend-multiply"
+              )}
             />
           </button>
         ))}
