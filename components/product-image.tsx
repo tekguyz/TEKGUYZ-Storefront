@@ -134,7 +134,7 @@ export function ProductImage() {
       </div>
 
       {/* Thumbnails */}
-      <div className="flex gap-2 overflow-x-auto max-w-full pb-2 px-2 scrollbar-hide snap-x">
+      <div className="flex gap-2 overflow-x-auto max-w-full py-2 px-2 scrollbar-hide snap-x">
         {IMAGES.map((img, idx) => (
           <button
             key={idx}
