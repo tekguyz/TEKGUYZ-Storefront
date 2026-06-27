@@ -33,7 +33,7 @@ export default function Header() {
               <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors outline-none cursor-pointer">
                 Computers <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64 bg-[var(--color-base)] border border-[var(--color-border)] rounded-[var(--radius-button)] shadow-lg mt-2 p-1">
+              <DropdownMenuContent align="start" className="w-64 bg-[var(--color-base)] border border-[var(--color-border)] rounded-[var(--radius-button)] shadow-lg mt-2 p-1">
                 <DropdownMenuItem className="cursor-pointer p-0 transition-colors">
                   <Link href="https://www.eclipsecat.com/all-laptops" className="w-full px-2 py-1.5 block">All Laptops</Link>
                 </DropdownMenuItem>
